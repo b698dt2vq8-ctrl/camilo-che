@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dos rostros de una Revolución | Camilo y Che en el servicio turístico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --olivo:#3B4A2F;
+    --olivo-osc:#2B3722;
+    --negro:#111111;
+    --rojo:#B3202A;
+    --crema:#F4EBD9;
+    --dorado:#C9A227;
+    --verde-ok:#3F7D3A;
+    --titulos:'Oswald','Impact','Arial Narrow',sans-serif;
+    --texto:'Lora','Georgia','Times New Roman',serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--texto);
+    color:var(--crema);
+    background:
+      repeating-linear-gradient(45deg,rgba(0,0,0,.05) 0 2px,transparent 2px 6px),
+      var(--olivo);
+    min-height:100vh;
+    line-height:1.6;
+    font-size:1.05rem;
+  }
+  h1,h2,h3{font-family:var(--titulos);font-weight:700;line-height:1.05;letter-spacing:.01em}
+  button{font:inherit;cursor:pointer}
+  :focus-visible{outline:3px solid var(--dorado);outline-offset:3px}
+
+/* Barra superior */
+.barra{
+position:sticky;top:0;z-index:10;
+display:flex;align-items:center;justify-content:space-between;gap:1rem;
+padding:.6rem 1.2rem;
+background:var(--negro);
+border-bottom:3px solid var(--rojo);
+}
+.marca{display:flex;align-items:center;gap:.6rem;font-family:var(--titulos);font-size:1.1rem}
+.marca svg{width:22px;height:22px;fill:var(--rojo)}
+.menu{display:flex;gap:.3rem;flex-wrap:wrap}
+.menu button{
+background:none;border:0;color:var(--crema);
+padding:.4rem .75rem;border-radius:4px;font-family:var(--titulos);font-size:.95rem;
+}
+.menu button:hover{background:rgba(244,235,217,.12)}
+.menu button[aria-current=“true”]{background:var(--rojo)}
+
+main{max-width:1080px;margin:0 auto;padding:2rem 1.2rem 3rem}
+.pantalla{display:none}
+.pantalla.activa{display:block}
+
+.btn{
+display:inline-block;background:var(--rojo);color:var(--crema);
+border:2px solid var(--crema);padding:.8rem 1.8rem;
+font-family:var(--titulos);font-size:1.25rem;border-radius:3px;
+transition:transform .15s, background .15s;
+}
+.btn:hover{background:#9a1a23;transform:translateY(-2px)}
+.btn.claro{background:var(--crema);color:var(--negro);border-color:var(--crema)}
+.btn.claro:hover{background:#fff}
+
+/* Portada */
+.portada{text-align:center;padding-top:1rem}
+.portada h1{font-size:clamp(2.8rem,9vw,6rem);text-transform:uppercase;margin-bottom:.4rem}
+.portada h1 span{display:block;color:var(--dorado)}
+.subtitulo{max-width:34rem;margin:0 auto 1.5rem;font-style:italic;opacity:.92}
+.escena{
+display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:.5rem;
+max-width:720px;margin:1.5rem auto;
+}
+.escena figure{position:relative}
+.escena svg.sil{width:100%;height:auto;display:block}
+.hueco{
+width:100%;aspect-ratio:4/5;
+display:flex;align-items:flex-end;justify-content:center;
+border:4px solid var(--crema);box-shadow:6px 6px 0 var(--negro);
+background:var(--olivo-osc);overflow:hidden;
+}
+.hueco svg,.hueco img{width:100%;height:100%;display:block}
+.hueco img{object-fit:cover;object-position:center top;filter:grayscale(1) sepia(.3) hue-rotate(40deg)}
+.escena figcaption{
+font-family:var(--titulos);font-size:1.3rem;margin-top:.3rem;
+}
+.escena .estrella{width:clamp(40px,8vw,80px);fill:var(--rojo);align-self:center;filter:drop-shadow(0 0 0 var(--crema))}
+.frases{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:720px;margin:0 auto 2rem;font-style:italic}
+.frases p{border-top:2px solid var(--dorado);padding-top:.5rem}
+
+/* Títulos de sección */
+.titulo-seccion{font-size:clamp(2rem,5vw,3rem);text-transform:uppercase;margin-bottom:.4rem}
+.intro{max-width:40rem;margin-bottom:1.8rem;opacity:.92}
+
+/* Tarjetas de héroes */
+.heroes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.tarjeta{
+background:var(--crema);color:var(--negro);
+border:3px solid var(--negro);
+box-shadow:6px 6px 0 var(--negro);
+}
+.tarjeta header{display:flex;gap:1rem;align-items:center;padding:1rem;border-bottom:3px solid var(--negro)}
+.foto{
+width:96px;height:120px;flex:none;background:var(--olivo);
+border:2px solid var(--negro);overflow:hidden;
+display:flex;align-items:flex-end;justify-content:center;
+}
+.foto img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) sepia(.35) hue-rotate(40deg)}
+.foto svg{width:100%;height:100%}
+.tarjeta h3{font-size:1.8rem}
+.tarjeta .dato{font-size:.95rem;opacity:.8}
+.cuerpo{padding:1rem}
+.cuerpo p{margin-bottom:.8rem}
+.etiquetas{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
+.etiquetas span{
+background:var(--olivo);color:var(--crema);padding:.15rem .6rem;border-radius:99px;font-size:.9rem;
+}
+.toggle{
+width:100%;background:var(--negro);color:var(--crema);border:0;
+padding:.7rem;font-family:var(--titulos);font-size:1.05rem;
+}
+.toggle:hover{background:var(--rojo)}
+.hitos{display:none;padding:0 1rem 1rem;border-top:2px dashed var(--olivo);margin-top:.2rem}
+.hitos.abierto{display:block}
+.hitos ul{list-style:none;margin-top:.8rem;border-left:3px solid var(--rojo);padding-left:.9rem}
+.hitos li{margin-bottom:.6rem}
+.hitos b{font-family:var(--titulos);color:var(--rojo);margin-right:.4rem}
+
+.heroes{align-items:start}
+.hitos h4{font-family:var(--titulos);font-size:1.15rem;color:var(--rojo);margin:1.1rem 0 .4rem}
+.hitos p{margin-bottom:.7rem}
+.hitos blockquote{border-left:4px solid var(--dorado);background:rgba(201,162,39,.15);padding:.7rem .9rem}
+.hitos blockquote strong{display:block;font-size:1.1rem;margin-bottom:.3rem}
+.hitos blockquote span{font-size:.95rem;opacity:.85}
+.hitos .leccion{background:var(--olivo);color:var(--crema);padding:.8rem .9rem;border-radius:3px}
+.etapa{font-family:var(--titulos);color:var(--dorado);margin-bottom:.8rem;font-size:1.1rem}
+.refuerzo{max-width:34rem;margin:1rem auto 0;text-align:left;background:var(--crema);color:var(--negro);border:3px solid var(--negro);padding:.9rem 1.1rem}
+.refuerzo ul{padding-left:1.2rem;margin-top:.3rem}
+
+/* Comparativa */
+.comparativa{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1rem}
+.col{background:var(--crema);color:var(--negro);padding:1.2rem;border:3px solid var(--negro)}
+.col.centro{background:var(--rojo);color:var(--crema)}
+.col h3{font-size:1.6rem;margin-bottom:.6rem}
+.col ul{padding-left:1.1rem}
+.col li{margin-bottom:.4rem}
+.nota{margin-top:1.5rem;padding:1rem 1.2rem;border-left:5px solid var(--dorado);background:rgba(0,0,0,.25);max-width:46rem}
+
+/* Reto */
+.reto{max-width:720px;margin:0 auto}
+.progreso{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;font-family:var(--titulos)}
+.barra-prog{flex:1;height:10px;background:rgba(0,0,0,.35);border-radius:99px;overflow:hidden}
+.barra-prog div{height:100%;background:var(--dorado);width:0;transition:width .4s}
+.caso{background:var(--crema);color:var(--negro);border:3px solid var(--negro);box-shadow:6px 6px 0 var(--negro);padding:1.3rem}
+.caso h3{font-size:1.5rem;margin-bottom:.5rem}
+.opciones{display:grid;gap:.7rem;margin:1.2rem 0 .4rem}
+.opcion{
+text-align:left;background:#fff;color:var(--negro);
+border:2px solid var(--negro);padding:.8rem 1rem;border-radius:3px;
+transition:background .15s;
+}
+.opcion:hover:not(:disabled){background:#efe3c8}
+.opcion:disabled{cursor:default}
+.opcion.p2{background:var(--verde-ok);color:#fff}
+.opcion.p1{background:var(--dorado)}
+.opcion.p0{background:var(--rojo);color:#fff}
+.opcion.mejor{outline:4px solid var(--verde-ok);outline-offset:2px}
+.retro{
+margin-top:1rem;padding:1rem;border:2px solid var(--negro);background:#fff;
+display:none;gap:.9rem;align-items:flex-start;
+}
+.retro.visible{display:flex}
+.insignia{
+flex:none;width:52px;height:52px;border-radius:50%;
+background:var(--olivo);color:var(--crema);border:3px solid var(--negro);
+display:flex;align-items:center;justify-content:center;
+font-family:var(--titulos);font-size:1.5rem;
+}
+.retro strong{font-family:var(--titulos);font-size:1.15rem;display:block}
+.acciones{margin-top:1.2rem;text-align:right}
+
+/* Resultado */
+.resultado{max-width:720px;margin:0 auto;text-align:center}
+.resultado .medalla{
+width:130px;height:130px;margin:0 auto 1rem;border-radius:50%;
+background:var(--crema);border:6px solid var(--dorado);
+display:flex;align-items:center;justify-content:center;
+}
+.resultado .medalla svg{width:70px;height:70px;fill:var(--rojo)}
+.resultado h2{font-size:clamp(2rem,6vw,3.2rem);text-transform:uppercase;margin-bottom:.5rem}
+.marcador{display:flex;justify-content:center;gap:1rem;margin:1.2rem 0;flex-wrap:wrap}
+.marcador div{background:var(--crema);color:var(--negro);border:3px solid var(--negro);padding:.7rem 1.4rem;min-width:140px}
+.marcador b{display:block;font-family:var(--titulos);font-size:2rem;color:var(--rojo)}
+.resultado .btn{margin:.4rem}
+
+footer{
+text-align:center;padding:1.5rem 1.2rem 2rem;border-top:3px solid var(--rojo);
+background:var(--negro);font-style:italic;
+}
+footer small{display:block;margin-top:.5rem;font-style:normal;opacity:.7;font-size:.85rem}
+
+@media (max-width:760px){
+.comparativa{grid-template-columns:1fr}
+.frases{grid-template-columns:1fr}
+.acciones{text-align:center}
+.acciones .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+*{transition:none!important;scroll-behavior:auto!important}
+}
+
+/* ===== Idioma, quiz y mapa ===== */
+.menu .idioma{background:var(--crema);color:var(--negro);font-weight:700;margin-left:.3rem}
+.menu .idioma:hover{background:#fff}
+.cita{border-left:4px solid var(--dorado);background:rgba(201,162,39,.18);padding:.8rem 1rem;font-size:1.2rem;font-style:italic;margin:.6rem 0}
+.quien{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1.2rem 0 .4rem}
+.quien .opcion{text-align:center;font-family:var(--titulos);font-size:1.2rem}
+.quien .opcion.mejor{outline:4px solid var(--verde-ok);outline-offset:2px}
+.opcion.bien{background:var(--verde-ok);color:#fff}
+.opcion.mal{background:var(--rojo);color:#fff}
+.mapa-wrap{background:var(--olivo-osc);border:3px solid var(--negro);padding:.5rem;box-shadow:6px 6px 0 var(--negro)}
+.mapa-wrap svg{width:100%;height:auto;display:block}
+.pais{fill:#5b6f49;stroke:var(--crema);stroke-width:1.6;stroke-linejoin:round}
+.ruta{fill:none;stroke-width:3;stroke-dasharray:7 6;stroke-linecap:round}
+.ruta.comun{stroke:var(--crema)}
+.ruta.r-camilo{stroke:var(--dorado)}
+.ruta.r-che{stroke:#e0535c}
+.punto{cursor:pointer}
+.punto:focus-visible{outline:none}
+.punto:focus-visible .vis{stroke:var(--crema);stroke-width:4}
+.punto .vis{stroke:var(--negro);stroke-width:3}
+.punto.sel .vis{stroke:var(--crema);stroke-width:4}
+.c-camilo{fill:var(--dorado)}
+.c-che{fill:var(--rojo)}
+.c-ambos{fill:var(--crema)}
+.etiqueta-mapa{font-family:var(--titulos);font-size:17px;fill:var(--crema);stroke:var(--negro);stroke-width:4;paint-order:stroke;text-anchor:middle;pointer-events:none}
+.leyenda{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin:.9rem 0;font-size:.95rem}
+.leyenda span{display:inline-flex;align-items:center;gap:.4rem}
+.leyenda i{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid var(--negro)}
+.leyenda i.l-ruta{width:26px;height:0;border:0;border-top:3px dashed var(--crema);border-radius:0}
+.leyenda i.l-ruta.rc{border-top-color:var(--dorado)}
+.leyenda i.l-ruta.rch{border-top-color:#e0535c}
+.lista-lugares{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.lugar{background:var(--crema);color:var(--negro);border:2px solid var(--negro);padding:.35rem .8rem;border-radius:99px;font-size:.95rem}
+.lugar:hover{background:#fff}
+.lugar[aria-pressed=“true”]{background:var(--rojo);color:var(--crema)}
+.info-lugar{background:var(--crema);color:var(--negro);border:3px solid var(--negro);box-shadow:6px 6px 0 var(--negro);padding:1.1rem 1.2rem}
+.info-lugar h3{font-size:1.6rem;margin-bottom:.2rem}
+.info-lugar .quien-tag{display:inline-block;background:var(--olivo);color:var(--crema);padding:.1rem .7rem;border-radius:99px;font-size:.9rem;margin-bottom:.6rem}
+.nota-mapa{margin-top:.8rem;font-size:.9rem;opacity:.8;font-style:italic}
+@media (max-width:520px){
+.quien{grid-template-columns:1fr}
+.menu button{padding:.35rem .5rem;font-size:.85rem}
+}
+</style>
+
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="estrella" viewBox="0 0 24 24"><path d="M12 1.5l3.1 7.2 7.8.7-5.9 5.2 1.8 7.6L12 18.1 5.2 22.2 7 14.6 1.1 9.4l7.8-.7z"/></symbol>
+</svg>
+
+<nav class="barra" aria-label="Navegación principal">
+  <div class="marca"><svg><use href="#estrella"/></svg>Camilo y Che</div>
+  <div class="menu" id="menu">
+    <button data-ir="portada" data-i18n="nav_inicio"></button>
+    <button data-ir="heroes" data-i18n="nav_heroes"></button>
+    <button data-ir="comparativa" data-i18n="nav_comp"></button>
+    <button data-ir="reto" data-i18n="nav_reto"></button>
+    <button data-ir="quiz" data-i18n="nav_quiz"></button>
+    <button data-ir="mapa" data-i18n="nav_mapa"></button>
+    <button class="idioma" id="btn-idioma" data-i18n="lang_btn"></button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+
+  <section id="portada" class="pantalla activa portada" aria-labelledby="t-portada">
+    <h1 id="t-portada" data-i18n="h1"></h1>
+    <p class="subtitulo" data-i18n="sub"></p>
+
+
+<div class="escena" aria-hidden="true">
+  <figure>
+    <!-- ESPACIO CAMILO: pega aquí dentro el código <svg>...</svg> del busto (hombros hacia arriba) -->
+    <div class="hueco" id="hueco-camilo"><img src="./images/foto-camilo.jpg" alt="Camilo Cienfuegos"></div>
+    <figcaption>Camilo</figcaption>
+  </figure>
+  <svg class="estrella"><use href="#estrella"/></svg>
+  <figure>
+    <!-- ESPACIO CHE: pega aquí dentro el código <svg>...</svg> del busto (hombros hacia arriba) -->
+    <div class="hueco" id="hueco-che"><img src="./images/foto-che.jpg" alt="Ernesto Che Guevara"></div>
+    <figcaption>Che</figcaption>
+  </figure>
+</div>
+
+<div class="frases">
+  <p data-i18n="fr_camilo"></p>
+  <p data-i18n="fr_che"></p>
+</div>
+
+<button class="btn" data-ir="heroes" data-i18n="comenzar"></button>
+
+
+  </section>
+
+  <!-- HÉROES -->
+
+  <section id="heroes" class="pantalla" aria-labelledby="t-heroes">
+    <h2 id="t-heroes" class="titulo-seccion" data-i18n="heroes_t"></h2>
+    <p class="intro" data-i18n="heroes_i"></p>
+    <div class="heroes" id="lista-heroes"></div>
+  </section>
+
+  <!-- COMPARATIVA -->
+
+  <section id="comparativa" class="pantalla" aria-labelledby="t-comp">
+    <h2 id="t-comp" class="titulo-seccion" data-i18n="comp_t"></h2>
+    <p class="intro" data-i18n="comp_i"></p>
+    <div class="comparativa">
+      <div class="col">
+        <h3>Camilo</h3>
+        <ul data-i18n="comp_camilo"></ul>
+      </div>
+      <div class="col centro">
+        <h3 data-i18n="comp_comun_t"></h3>
+        <ul data-i18n="comp_comun"></ul>
+      </div>
+      <div class="col">
+        <h3>Che</h3>
+        <ul data-i18n="comp_che"></ul>
+      </div>
+    </div>
+    <p class="nota" data-i18n="comp_nota"></p>
+    <p style="margin-top:1.5rem"><button class="btn" data-ir="reto" data-i18n="comp_btn"></button></p>
+  </section>
+
+  <!-- RETO -->
+
+  <section id="reto" class="pantalla" aria-labelledby="t-reto">
+    <div class="reto" id="zona-reto"></div>
+  </section>
+
+  <!-- RESULTADO DEL RETO -->
+
+  <section id="resultado" class="pantalla" aria-labelledby="t-res">
+    <div class="resultado" id="zona-resultado"></div>
+  </section>
+
+  <!-- ¿QUIÉN FUE? -->
+
+  <section id="quiz" class="pantalla" aria-labelledby="t-quiz">
+    <div class="reto" id="zona-quiz"></div>
+  </section>
+
+  <section id="quizfin" class="pantalla" aria-labelledby="t-quizfin">
+    <div class="resultado" id="zona-quizfin"></div>
+  </section>
+
+  <!-- MAPA -->
+
+  <section id="mapa" class="pantalla" aria-labelledby="t-mapa">
+    <h2 id="t-mapa" class="titulo-seccion" data-i18n="mapa_t"></h2>
+    <p class="intro" data-i18n="mapa_i"></p>
+    <div id="zona-mapa"></div>
+  </section>
+
+</main>
+
+<footer>
+  <span data-i18n="foot"></span>
+  <small data-i18n="foot_small"></small>
+</footer>
+
+<script>
+let lang = 'es';
+const t = p => p[lang === 'es' ? 0 : 1];
+const L = (es, en) => lang === 'es' ? es : en;
+
+/* ============================================================
+   TEXTOS DE LA INTERFAZ  [español, inglés]
+   ============================================================ */
+const UI = {
+  titulo: ['Dos rostros de una Revolución | Camilo y Che en el servicio turístico', 'Two Faces of One Revolution | Camilo and Che in tourism service'],
+  aria_idioma: ['Cambiar a inglés', 'Switch to Spanish'],
+  lang_btn: ['EN', 'ES'],
+  nav_inicio: ['Inicio', 'Home'],
+  nav_heroes: ['Los héroes', 'The heroes'],
+  nav_comp: ['Comparativa', 'Compare'],
+  nav_reto: ['Reto del servicio', 'Service challenge'],
+  nav_quiz: ['¿Quién fue?', 'Who was it?'],
+  nav_mapa: ['Mapa', 'Map'],
+  h1: ['Dos rostros<span>de una Revolución</span>', 'Two faces<span>of one Revolution</span>'],
+  sub: ['La vigencia del espíritu revolucionario en el servicio turístico.', 'The enduring revolutionary spirit in tourism service.'],
+  fr_camilo: ['«Vas bien, Fidel.»<br>Camilo Cienfuegos', '“You’re doing fine, Fidel.”<br>Camilo Cienfuegos'],
+  fr_che: ['«Hasta la victoria siempre.»<br>Ernesto Che Guevara', '“Until victory, always.”<br>Ernesto Che Guevara'],
+  comenzar: ['Comenzar', 'Start'],
+  heroes_t: ['Conoce a los héroes', 'Meet the heroes'],
+  heroes_i: ['Dos vidas, una misma entrega. Abre cada tarjeta para conocer su historia, su recorrido, sus palabras y lo que nos enseñan para el servicio turístico.',
+             'Two lives, one same dedication. Open each card to learn their story, their journey, their words and what they teach us about tourism service.'],
+  comp_t: ['Lo que los distingue y lo que los une', 'What sets them apart and what unites them'],
+  comp_i: ['Camilo y Che tuvieron caminos distintos, pero compartieron los valores que hoy guían a un buen profesional del turismo.',
+           'Camilo and Che followed different paths, but they shared the values that guide a good tourism professional today.'],
+  comp_camilo: ['<li>Cercanía con el pueblo</li><li>Humor y sencillez</li><li>Liderazgo al frente de la tropa</li><li>Humanismo en el trato</li>',
+                '<li>Closeness to the people</li><li>Humor and simplicity</li><li>Leading from the front</li><li>Humanism in how he treated others</li>'],
+  comp_comun_t: ['Valores en común', 'Shared values'],
+  comp_comun: ['<li>Humildad</li><li>Entrega total a la causa</li><li>Lealtad</li><li>Ejemplo personal</li><li>Servir con dignidad</li>',
+               '<li>Humility</li><li>Total dedication to the cause</li><li>Loyalty</li><li>Personal example</li><li>Serving with dignity</li>'],
+  comp_che: ['<li>Ética y coherencia</li><li>Internacionalismo</li><li>Trabajo voluntario</li><li>El «hombre nuevo»</li>',
+             '<li>Ethics and coherence</li><li>Internationalism</li><li>Voluntary work</li><li>The “new man”</li>'],
+  comp_nota: ['En el turismo, la cercanía de Camilo se convierte en trato humano al huésped, y la ética del Che, en honradez y excelencia en cada servicio. Cada octubre, Cuba los recuerda juntos: el 8 se honra al Guerrillero Heroico y el 28, a Camilo, con flores lanzadas al mar.',
+              'In tourism, Camilo’s closeness becomes warm, human treatment of the guest, and Che’s ethics become honesty and excellence in every service. Every October, Cuba remembers them together: on the 8th it honors the Heroic Guerrilla, and on the 28th, Camilo, with flowers thrown into the sea.'],
+  comp_btn: ['Ir al reto del servicio', 'Go to the service challenge'],
+  mapa_t: ['Mapa de la historia', 'Map of the story'],
+  mapa_i: ['Toca un punto del mapa o un botón de la lista para saber qué ocurrió en ese lugar.',
+           'Tap a point on the map or a button in the list to find out what happened there.'],
+  foot: ['«Que cada servicio prestado lleve la dignidad de la historia; que cada puesto de trabajo sea trinchera de los valores que Camilo y Che nos legaron.»',
+         '“May every service we provide carry the dignity of history; may every workplace be a trench for the values Camilo and Che left us.”'],
+  foot_small: ['Concurso «Camilo y Che; la vigencia del espíritu revolucionario en el servicio turístico» · Escuela de Hotelería y Turismo de Varadero',
+               'Contest “Camilo and Che: the enduring revolutionary spirit in tourism service” · Varadero School of Hospitality and Tourism']
+};
+const u = k => t(UI[k]);
+
+function aplicarIdioma(){
+  document.documentElement.lang = lang;
+  document.title = u('titulo');
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = u(el.dataset.i18n); });
+  document.getElementById('btn-idioma').setAttribute('aria-label', u('aria_idioma'));
+}
+
+/* ============================================================
+   HÉROES  (cada texto es [español, inglés])
+   Para usar fotos reales, pon la ruta en "foto", por ejemplo:
+   foto: "img/camilo.jpg"  (déjalo vacío para usar la silueta)
+   ============================================================ */
+const HEROES = [
+  {
+    id: 'camilo',
+    nombre: 'Camilo Cienfuegos',
+    dato: ['La Habana, 1932 · «El Señor de la Vanguardia»', 'Havana, 1932 · “The Lord of the Vanguard”'],
+    foto: './images/foto-camilo.jpg',
+    resumen: ['Joven trabajador, valiente y alegre, que se unió a la expedición del Granma y llegó a ser jefe del Ejército Rebelde. El pueblo lo recuerda por su sonrisa, su sencillez y su cercanía.',
+              'A hard-working, brave and cheerful young man who joined the Granma expedition and became head of the Rebel Army. The people remember him for his smile, his simplicity and his closeness.'],
+    valores: [['Cercanía con el pueblo', 'Closeness to the people'], ['Humor', 'Humor'], ['Humildad', 'Humility'], ['Lealtad', 'Loyalty']],
+    historia: [
+      ['Camilo nació en La Habana el 6 de febrero de 1932, en una familia humilde. Desde joven trabajó en distintos oficios, como ayudante en una sastrería y dependiente de tienda, y tenía talento para el dibujo. Conoció de cerca las dificultades del pueblo trabajador, y eso marcó su carácter.',
+       'Camilo was born in Havana on February 6, 1932, into a humble family. From a young age he worked at different jobs, such as tailor’s assistant and shop clerk, and he had a talent for drawing. He saw firsthand the hardships of working people, and that shaped his character.'],
+      ['Se opuso a la dictadura de Batista desde muy joven. En México se unió a Fidel y a los expedicionarios del Granma, y llegó a Cuba en diciembre de 1956. En la Sierra Maestra destacó por su valentía, su rapidez para decidir y una alegría que contagiaba a sus compañeros.',
+       'He opposed Batista’s dictatorship from a very young age. In Mexico he joined Fidel and the Granma expeditionaries, and reached Cuba in December 1956. In the Sierra Maestra he stood out for his courage, his quick decisions and a joy that spread to his comrades.'],
+      ['En agosto de 1958 dirigió la Columna 2 «Antonio Maceo» en la invasión hacia occidente. Tras una marcha muy dura llegó a Las Villas y libró la batalla de Yaguajay, que terminó con la rendición del cuartel a finales de diciembre. Con el triunfo de la Revolución asumió la jefatura del Ejército Rebelde.',
+       'In August 1958 he led Column 2 “Antonio Maceo” in the invasion toward the west. After a very hard march he reached Las Villas and fought the battle of Yaguajay, which ended with the surrender of the barracks in late December. With the triumph of the Revolution he took over the command of the Rebel Army.'],
+      ['El 28 de octubre de 1959, cuando volvía de Camagüey a La Habana, su avioneta desapareció sobre el mar. Desde entonces, cada 28 de octubre los niños cubanos lanzan flores al mar en su homenaje.',
+       'On October 28, 1959, as he was flying back from Camagüey to Havana, his small plane disappeared over the sea. Since then, every October 28 Cuban children throw flowers into the sea in his honor.']
+    ],
+    hitos: [
+      [['1932', '1932'], ['Nace en La Habana, el 6 de febrero.', 'Born in Havana on February 6.']],
+      [['1956', '1956'], ['Llega a Cuba en la expedición del Granma.', 'Reaches Cuba aboard the Granma expedition.']],
+      [['1958', '1958'], ['En agosto inicia la invasión hacia occidente al frente de la Columna 2 «Antonio Maceo».', 'In August he begins the invasion toward the west, leading Column 2 “Antonio Maceo”.']],
+      [['Dic. 1958', 'Dec. 1958'], ['Libra la batalla de Yaguajay.', 'Fights the battle of Yaguajay.']],
+      [['Ene. 1959', 'Jan. 1959'], ['Entra en La Habana con el triunfo y asume la jefatura del Ejército Rebelde.', 'Enters Havana with the victory and takes command of the Rebel Army.']],
+      [['1959', '1959'], ['Desaparece en vuelo el 28 de octubre.', 'Disappears in flight on October 28.']]
+    ],
+    frase: [['«Vas bien, Fidel.»', '“You’re doing fine, Fidel.”'],
+            ['El 8 de enero de 1959, durante el discurso de Fidel en Columbia, el pueblo escuchó esta respuesta de Camilo a la pregunta «¿Voy bien, Camilo?».',
+             'On January 8, 1959, during Fidel’s speech at Columbia, the people heard Camilo’s answer to the question “Am I doing well, Camilo?”.']],
+    leccion: ['En el turismo, Camilo nos enseña que la cercanía vale más que el cargo: el huésped y el compañero necesitan sencillez, alegría y respeto, sin importar la jerarquía.',
+              'In tourism, Camilo teaches us that closeness matters more than rank: guests and colleagues deserve simplicity, joy and respect, whatever the hierarchy.']
+  },
+  {
+    id: 'che',
+    nombre: 'Ernesto Che Guevara',
+    dato: ['Rosario, Argentina, 1928 · Médico y guerrillero', 'Rosario, Argentina, 1928 · Doctor and guerrilla fighter'],
+    foto: './images/foto-che.jpg',
+    resumen: ['Médico que hizo suya la causa de los pueblos de América. Fue comandante en la toma de Santa Clara, ministro y combatiente internacionalista. Su vida se resume en la coherencia entre lo que decía y lo que hacía.',
+              'A doctor who made the cause of the peoples of the Americas his own. He was a commander in the taking of Santa Clara, a minister and an internationalist fighter. His life can be summed up as coherence between what he said and what he did.'],
+    valores: [['Ética', 'Ethics'], ['Internacionalismo', 'Internationalism'], ['Ejemplo personal', 'Personal example'], ['Trabajo voluntario', 'Voluntary work']],
+    historia: [
+      ['Ernesto Guevara nació en Rosario, Argentina, el 14 de junio de 1928. Estudió Medicina y, antes de graduarse, recorrió Latinoamérica en moto y a pie. Esos viajes le mostraron la pobreza y la injusticia que sufrían los pueblos del continente, y cambiaron su vida.',
+       'Ernesto Guevara was born in Rosario, Argentina, on June 14, 1928. He studied Medicine and, before graduating, traveled across Latin America by motorbike and on foot. Those journeys showed him the poverty and injustice suffered by the peoples of the continent, and changed his life.'],
+      ['En México conoció a Fidel Castro y se sumó al Granma como médico. En la Sierra Maestra pasó de curar heridos a combatir, y llegó a ser comandante por su disciplina y su valor. En diciembre de 1958 dirigió la toma de Santa Clara, decisiva para el triunfo.',
+       'In Mexico he met Fidel Castro and joined the Granma as a doctor. In the Sierra Maestra he went from treating the wounded to fighting, and became a commander through his discipline and courage. In December 1958 he led the taking of Santa Clara, decisive for the victory.'],
+      ['Con la Revolución en el poder asumió grandes tareas: presidió el Banco Nacional y fue ministro de Industrias. Daba el ejemplo con el trabajo voluntario: cortaba caña, cargaba barcos y trabajaba en la construcción, y no pedía a nadie lo que no se exigía a sí mismo.',
+       'With the Revolution in power he took on major responsibilities: he headed the National Bank and served as Minister of Industries. He led by example through voluntary work: he cut sugarcane, loaded ships and worked in construction, and never asked anyone to do what he did not demand of himself.'],
+      ['En 1965 dejó Cuba para luchar por la libertad de otros pueblos, primero en el Congo y después en Bolivia, donde cayó el 9 de octubre de 1967, en La Higuera. Desde 1997 sus restos descansan en Santa Clara, la ciudad de su gran victoria.',
+       'In 1965 he left Cuba to fight for the freedom of other peoples, first in the Congo and then in Bolivia, where he fell on October 9, 1967, in La Higuera. Since 1997 his remains rest in Santa Clara, the city of his great victory.']
+    ],
+    hitos: [
+      [['1928', '1928'], ['Nace en Rosario, el 14 de junio.', 'Born in Rosario on June 14.']],
+      [['1952', '1952'], ['Recorre Latinoamérica en moto con su amigo Alberto Granado.', 'Travels across Latin America by motorbike with his friend Alberto Granado.']],
+      [['1955', '1955'], ['Conoce a Fidel en México.', 'Meets Fidel in Mexico.']],
+      [['1956', '1956'], ['Se incorpora al Granma como médico de la expedición.', 'Joins the Granma as the expedition’s doctor.']],
+      [['1958', '1958'], ['Dirige la toma de Santa Clara.', 'Leads the taking of Santa Clara.']],
+      [['1961', '1961'], ['Es ministro de Industrias.', 'Becomes Minister of Industries.']],
+      [['1965', '1965'], ['Combate como internacionalista en el Congo.', 'Fights as an internationalist in the Congo.']],
+      [['1967', '1967'], ['Cae en La Higuera, Bolivia, el 9 de octubre.', 'Falls in La Higuera, Bolivia, on October 9.']],
+      [['1997', '1997'], ['Sus restos son depositados en Santa Clara.', 'His remains are laid to rest in Santa Clara.']]
+    ],
+    frase: [['«Hay que endurecerse, pero sin perder jamás la ternura.»', '“One must toughen up, but never lose tenderness.”'],
+            ['Frase atribuida al Che que resume su idea de ser firme en los principios y sensible ante las personas.',
+             'A phrase attributed to Che that sums up his idea of being firm in principles and sensitive toward people.']],
+    leccion: ['En el turismo, el Che nos enseña que la excelencia nace de la ética, el estudio y el ejemplo: hacer bien el trabajo, tratar con respeto a huéspedes de cualquier país y no pedir a otros lo que uno no hace.',
+              'In tourism, Che teaches us that excellence springs from ethics, study and example: do the job well, treat guests from any country with respect, and never ask of others what you don’t do yourself.']
+  }
+];
+
+/* ============================================================
+   RETO DEL SERVICIO
+   ============================================================ */
+const ETAPAS = [['Atención al huésped', 'Guest service'], ['Trabajo en equipo', 'Teamwork'], ['Honradez y humanidad', 'Honesty and humanity']];
+
+const CASOS = [
+  /* ---------- Etapa 1 ---------- */
+  { etapa: 0, heroe: 'camilo', valor: ['Dignidad y humildad', 'Dignity and humility'],
+    titulo: ['Un cliente molesto', 'An upset guest'],
+    texto: ['Un huésped llega furioso porque su reserva salió mal. Todos lo miran y nadie se acerca.', 'A guest arrives furious because his reservation went wrong. Everyone is looking at him and nobody steps up.'],
+    opciones: [
+      [['Le dices que no es tu área y llamas a recepción.', 'You say it’s not your area and call the front desk.'], 0],
+      [['Lo escuchas con respeto, te disculpas y buscas tú la solución.', 'You listen respectfully, apologize and find the solution yourself.'], 2],
+      [['Le ofreces un descuento sin escuchar qué pasó.', 'You offer a discount without listening to what happened.'], 1]
+    ],
+    retro: ['Camilo se ganaba a la gente escuchándola de cerca. Servir con dignidad empieza por atender de verdad.', 'Camilo won people over by listening to them up close. Serving with dignity starts with truly paying attention.'] },
+
+  { etapa: 0, heroe: 'che', valor: ['Hospitalidad sin fronteras', 'Hospitality without borders'],
+    titulo: ['Un turista perdido', 'A lost tourist'],
+    texto: ['Un turista extranjero no habla español y no encuentra su habitación.', 'A foreign tourist doesn’t speak Spanish and can’t find his room.'],
+    opciones: [
+      [['Le indicas por señas y sigues con tu trabajo.', 'You point the way with gestures and go back to work.'], 1],
+      [['Le dices que pregunte en la recepción.', 'You tell him to ask at the front desk.'], 0],
+      [['Lo acompañas y usas otro idioma o un traductor hasta resolverlo.', 'You walk with him and use another language or a translator until it’s solved.'], 2]
+    ],
+    retro: ['El internacionalismo del Che se vive en una hospitalidad que no conoce fronteras.', 'Che’s internationalism is lived through hospitality that knows no borders.'] },
+
+  { etapa: 0, heroe: 'camilo', valor: ['Humanismo en el trato', 'Humanism in how we treat others'],
+    titulo: ['Ruido a medianoche', 'Noise at midnight'],
+    texto: ['Son las once de la noche. Un huésped llama a recepción porque un grupo de la habitación vecina hace mucho ruido. Tú estás de turno.', 'It is eleven at night. A guest calls the front desk because a group in the next room is very noisy. You are on duty.'],
+    opciones: [
+      [['Le dices que es normal en un hotel y que intente dormir.', 'You tell him it’s normal in a hotel and that he should try to sleep.'], 0],
+      [['Anotas la queja y le prometes hablar con ellos más tarde.', 'You note the complaint and promise to talk to them later.'], 1],
+      [['Vas personalmente, hablas con amabilidad con el grupo y luego avisas al huésped de que ya está resuelto.', 'You go in person, speak kindly to the group, and then let the guest know it’s been taken care of.'], 2]
+    ],
+    retro: ['Camilo resolvía los problemas de cerca, cara a cara y con buen trato. Atender un reclamo es responsabilidad de todos, no solo de quien contesta el teléfono.', 'Camilo solved problems up close, face to face and with kindness. Handling a complaint is everyone’s responsibility, not just that of whoever answers the phone.'] },
+
+  { etapa: 0, heroe: 'che', valor: ['Sensibilidad humana', 'Human sensitivity'],
+    titulo: ['El huésped que camina con dificultad', 'The guest who walks with difficulty'],
+    texto: ['Un huésped de avanzada edad llega con maletas pesadas y camina con dificultad por el lobby.', 'An elderly guest arrives with heavy suitcases and walks with difficulty across the lobby.'],
+    opciones: [
+      [['Le señalas dónde está el elevador y vuelves a tu puesto.', 'You point out where the elevator is and return to your post.'], 1],
+      [['Le ofreces tu brazo, llevas su equipaje y lo acompañas hasta la habitación.', 'You offer your arm, carry his luggage and walk him to his room.'], 2],
+      [['Piensas que el botones debe encargarse y continúas con lo tuyo.', 'You think the bellhop should handle it and carry on with your own work.'], 0]
+    ],
+    retro: ['El Che era médico y nunca perdió la sensibilidad ante quien necesita ayuda: firmeza en los principios, pero con ternura hacia las personas.', 'Che was a doctor and never lost his sensitivity toward those in need: firm in principles, yet tender toward people.'] },
+
+  /* ---------- Etapa 2 ---------- */
+  { etapa: 1, heroe: 'camilo', valor: ['Compañerismo', 'Camaraderie'],
+    titulo: ['Un compañero desbordado', 'An overwhelmed colleague'],
+    texto: ['En pleno turno fuerte, un compañero no da abasto con sus tareas.', 'In the middle of a busy shift, a colleague can’t keep up with his tasks.'],
+    opciones: [
+      [['Lo ayudas sin que te lo pida y animas al grupo.', 'You help him without being asked and cheer up the group.'], 2],
+      [['Esperas a que él pida ayuda.', 'You wait for him to ask for help.'], 1],
+      [['Te concentras en terminar lo tuyo.', 'You focus on finishing your own work.'], 0]
+    ],
+    retro: ['La cercanía y el compañerismo de Camilo hacían que nadie se sintiera solo en el trabajo.', 'Camilo’s closeness and camaraderie meant no one felt alone at work.'] },
+
+  { etapa: 1, heroe: 'che', valor: ['Ejemplo personal', 'Personal example'],
+    titulo: ['Una tarea ingrata', 'A thankless task'],
+    texto: ['Te asignan una tarea pesada que nadie quiere hacer.', 'You are assigned a heavy task that nobody wants to do.'],
+    opciones: [
+      [['La haces con ganas y das el ejemplo.', 'You do it willingly and set the example.'], 2],
+      [['La haces, pero quejándote todo el tiempo.', 'You do it, but complain the whole time.'], 1],
+      [['Se la pasas a un compañero nuevo.', 'You hand it over to a new colleague.'], 0]
+    ],
+    retro: ['El Che practicaba el trabajo voluntario y nunca pedía a otros lo que no hacía él mismo.', 'Che practiced voluntary work and never asked of others what he did not do himself.'] },
+
+  { etapa: 1, heroe: 'camilo', valor: ['Liderazgo cercano', 'Close leadership'],
+    titulo: ['Un equipo cansado', 'A tired team'],
+    texto: ['Eres jefe de turno y tu equipo está agotado, pero aún queda mucho por hacer.', 'You are the shift supervisor and your team is exhausted, but there is still a lot to do.'],
+    opciones: [
+      [['Exiges más porque «así es el trabajo».', 'You demand more because “that’s the job”.'], 0],
+      [['Das órdenes desde la oficina.', 'You give orders from the office.'], 1],
+      [['Trabajas al lado de ellos, los animas y reconoces su esfuerzo.', 'You work alongside them, encourage them and recognize their effort.'], 2]
+    ],
+    retro: ['Camilo lideraba con el ejemplo: siempre al frente y cerca de su tropa.', 'Camilo led by example: always at the front and close to his troops.'] },
+
+  { etapa: 1, heroe: 'che', valor: ['Estudio y superación', 'Study and self-improvement'],
+    titulo: ['Un curso fuera de horario', 'A course outside working hours'],
+    texto: ['La dirección ofrece un curso de idiomas para el personal, fuera de tu horario habitual. Nadie te obliga a ir.', 'Management offers a language course for the staff, outside your usual hours. Nobody forces you to go.'],
+    opciones: [
+      [['Lo rechazas: ya sabes lo suficiente para tu puesto.', 'You turn it down: you already know enough for your job.'], 0],
+      [['Vas solo para obtener el certificado.', 'You go just to get the certificate.'], 1],
+      [['Te inscribes, estudias en serio y luego compartes lo aprendido con tus compañeros.', 'You sign up, study seriously and then share what you learned with your colleagues.'], 2]
+    ],
+    retro: ['El Che veía el estudio como un deber permanente. Superarse y enseñar a otros mejora el servicio de todo el colectivo.', 'Che saw study as a lifelong duty. Improving yourself and teaching others improves the service of the whole team.'] },
+
+  /* ---------- Etapa 3 ---------- */
+  { etapa: 2, heroe: 'camilo', valor: ['Humildad y sinceridad', 'Humility and honesty'],
+    titulo: ['Un error propio', 'Your own mistake'],
+    texto: ['Por un descuido tuyo, el almuerzo de un huésped llega con mucho retraso. Él reclama y nadie sabe aún quién se equivocó.', 'Because of your oversight, a guest’s lunch arrives very late. He complains and nobody yet knows who made the mistake.'],
+    opciones: [
+      [['Dices que fue culpa de la cocina.', 'You say it was the kitchen’s fault.'], 0],
+      [['Admites tu error, te disculpas y te aseguras de que el almuerzo llegue de inmediato.', 'You admit your mistake, apologize and make sure the lunch arrives right away.'], 2],
+      [['Reconoces el error solo cuando te lo preguntan directamente.', 'You admit the mistake only when asked directly.'], 1]
+    ],
+    retro: ['La sencillez de Camilo se notaba en su franqueza. Reconocer un error a tiempo genera confianza, en el equipo y en el huésped.', 'Camilo’s simplicity showed in his frankness. Admitting a mistake in time builds trust, with the team and with the guest.'] },
+
+  { etapa: 2, heroe: 'che', valor: ['Ética y honradez', 'Ethics and honesty'],
+    titulo: ['Una oferta tentadora', 'A tempting offer'],
+    texto: ['Un cliente te ofrece dinero extra a cambio de dar un trato injusto a otro huésped.', 'A customer offers you extra money in exchange for treating another guest unfairly.'],
+    opciones: [
+      [['Lo aceptas: nadie se va a enterar.', 'You accept: nobody will find out.'], 0],
+      [['Lo rechazas con educación y tratas igual a todos.', 'You politely refuse and treat everyone equally.'], 2],
+      [['Lo aceptas y lo repartes con el equipo.', 'You accept it and share it with the team.'], 1]
+    ],
+    retro: ['La ética guevarista no se negocia, ni siquiera cuando nadie está mirando.', 'Che’s ethics are not up for negotiation, not even when nobody is watching.'] },
+
+  { etapa: 2, heroe: 'che', valor: ['Honradez', 'Honesty'],
+    titulo: ['La cartera olvidada', 'The forgotten wallet'],
+    texto: ['Al limpiar una zona común encuentras una cartera con dinero y documentos. Nadie te vio.', 'While cleaning a common area you find a wallet with money and documents. Nobody saw you.'],
+    opciones: [
+      [['Esperas unos días por si la reclaman y, si no, te quedas con el dinero.', 'You wait a few days in case someone claims it and, if not, keep the money.'], 0],
+      [['La guardas en tu taquilla hasta que alguien pregunte por ella.', 'You keep it in your locker until someone asks about it.'], 1],
+      [['La entregas de inmediato en recepción o a tu jefe y dejas constancia.', 'You hand it in right away at the front desk or to your supervisor and leave a record.'], 2]
+    ],
+    retro: ['El Che exigía honradez absoluta, empezando por uno mismo. Lo ajeno no se toca, aunque nadie esté mirando.', 'Che demanded absolute honesty, starting with oneself. What belongs to others is not touched, even if nobody is watching.'] },
+
+  { etapa: 2, heroe: 'camilo', valor: ['Calidez y alegría', 'Warmth and joy'],
+    titulo: ['El huésped solitario', 'The solitary guest'],
+    texto: ['En el restaurante, un huésped que viaja solo come en silencio y parece decaído.', 'In the restaurant, a guest traveling alone eats in silence and seems down.'],
+    opciones: [
+      [['Mantienes distancia para no molestarlo.', 'You keep your distance so as not to bother him.'], 0],
+      [['Lo saludas con calidez, conversas con naturalidad y haces que se sienta bienvenido.', 'You greet him warmly, chat naturally and make him feel welcome.'], 2],
+      [['Lo atiendes correctamente, sin más, y no lo interrumpes.', 'You serve him properly, nothing more, and don’t interrupt him.'], 1]
+    ],
+    retro: ['La alegría y la cercanía de Camilo conquistaban a cualquiera. Un trato cálido y sincero puede cambiar el día de un huésped.', 'Camilo’s joy and closeness won over anyone. A warm, sincere approach can change a guest’s day.'] }
+];
+
+const POR_HEROE = CASOS.filter(c => c.heroe === 'camilo').length * 2;
+
+/* ============================================================
+   ¿QUIÉN FUE?
+   tipo: 'frase' o 'hecho' · resp: 'camilo' | 'che' | 'ambos'
+   ============================================================ */
+const QUIZ = [
+  { tipo: 'frase', resp: 'camilo',
+    texto: ['«Vas bien, Fidel.»', '“You’re doing fine, Fidel.”'],
+    retro: ['Camilo la dijo el 8 de enero de 1959, durante el discurso de Fidel en Columbia.', 'Camilo said it on January 8, 1959, during Fidel’s speech at Columbia.'] },
+  { tipo: 'frase', resp: 'che',
+    texto: ['«Hasta la victoria siempre.»', '“Until victory, always.”'],
+    retro: ['Es la despedida del Che en su carta a Fidel, escrita en 1965.', 'It is Che’s farewell in his letter to Fidel, written in 1965.'] },
+  { tipo: 'frase', resp: 'che',
+    texto: ['«…sean siempre capaces de sentir en lo más hondo cualquier injusticia cometida contra cualquiera en cualquier parte del mundo.»', '“…always be capable of feeling deeply any injustice committed against anyone, anywhere in the world.”'],
+    retro: ['Son palabras del Che en la carta que dejó a sus hijos.', 'These are Che’s words in the letter he left for his children.'] },
+  { tipo: 'frase', resp: 'che',
+    texto: ['«El revolucionario verdadero está guiado por fuertes sentimientos de amor.»', '“The true revolutionary is guided by strong feelings of love.”'],
+    retro: ['Está en el texto «El socialismo y el hombre en Cuba», del Che (1965).', 'It comes from Che’s essay “Socialism and Man in Cuba” (1965).'] },
+  { tipo: 'hecho', resp: 'camilo',
+    texto: ['Dirigió el cerco y la batalla de Yaguajay.', 'He led the siege and the battle of Yaguajay.'],
+    retro: ['Camilo dirigió esa batalla, que terminó con la rendición del cuartel a finales de 1958.', 'Camilo led that battle, which ended with the surrender of the barracks in late 1958.'] },
+  { tipo: 'hecho', resp: 'che',
+    texto: ['Era médico de profesión.', 'He was a doctor by profession.'],
+    retro: ['El Che estudió Medicina y se sumó al Granma como médico de la expedición.', 'Che studied Medicine and joined the Granma as the expedition’s doctor.'] },
+  { tipo: 'hecho', resp: 'ambos',
+    texto: ['Viajó en la expedición del Granma.', 'He sailed on the Granma expedition.'],
+    retro: ['Los dos formaron parte de la expedición que llegó a Cuba en diciembre de 1956.', 'Both were part of the expedition that reached Cuba in December 1956.'] },
+  { tipo: 'hecho', resp: 'camilo',
+    texto: ['Su avioneta desapareció sobre el mar en 1959.', 'His small plane disappeared over the sea in 1959.'],
+    retro: ['Ocurrió el 28 de octubre de 1959, en un vuelo de Camagüey a La Habana.', 'It happened on October 28, 1959, on a flight from Camagüey to Havana.'] },
+  { tipo: 'hecho', resp: 'che',
+    texto: ['Combatió como internacionalista en el Congo y en Bolivia.', 'He fought as an internationalist in the Congo and in Bolivia.'],
+    retro: ['Dejó Cuba en 1965 para luchar por otros pueblos; cayó en Bolivia en 1967.', 'He left Cuba in 1965 to fight for other peoples; he fell in Bolivia in 1967.'] },
+  { tipo: 'hecho', resp: 'camilo',
+    texto: ['Cada 28 de octubre los niños lanzan flores al mar en su homenaje.', 'Every October 28, children throw flowers into the sea in his honor.'],
+    retro: ['Es la ofrenda que Cuba dedica a Camilo cada año.', 'It is the tribute Cuba pays to Camilo every year.'] },
+  { tipo: 'hecho', resp: 'camilo',
+    texto: ['Dirigió la Columna 2 «Antonio Maceo».', 'He led Column 2 “Antonio Maceo”.'],
+    retro: ['Con esa columna Camilo realizó la invasión hacia occidente en 1958.', 'With that column Camilo carried out the invasion toward the west in 1958.'] },
+  { tipo: 'hecho', resp: 'ambos',
+    texto: ['Fue comandante del Ejército Rebelde.', 'He was a commander of the Rebel Army.'],
+    retro: ['Los dos alcanzaron el grado de comandante en la guerra de liberación.', 'Both reached the rank of commander in the liberation war.'] }
+];
+
+/* ============================================================
+   MAPA  (mapa esquemático, no a escala)
+   ============================================================ */
+const PX = lon => (lon + 85.2) * 56;
+const PY = lat => (23.45 - lat) * 60;
+
+const CUBA = [
+  [-84.95,21.86],[-84.4,21.95],[-84.1,22.1],[-83.95,22.6],[-83.75,22.95],[-83.17,23.05],[-82.75,23.05],[-82.35,23.17],
+  [-81.93,23.15],[-81.6,23.05],[-81.15,23.2],[-80.6,23.1],[-80.0,22.95],[-79.5,22.55],[-79.0,22.6],[-78.5,22.55],
+  [-78.0,22.25],[-77.7,21.9],[-77.3,21.6],[-76.6,21.15],[-76.15,21.1],[-75.7,21.05],[-75.3,20.75],[-74.9,20.65],
+  [-74.5,20.35],[-74.15,20.25],[-74.6,20.05],[-75.15,19.9],[-75.8,19.95],[-76.4,19.9],[-77.0,19.9],[-77.7,19.85],
+  [-77.5,20.1],[-77.15,20.35],[-77.35,20.62],[-77.99,20.72],[-78.35,21.05],[-78.85,21.6],[-79.55,21.62],[-80.0,21.75],
+  [-80.45,22.05],[-81.0,22.05],[-81.15,22.3],[-81.4,22.05],[-81.9,22.15],[-82.3,22.65],[-82.8,22.7],[-83.3,22.5],
+  [-83.6,22.2],[-84.0,22.0],[-84.5,21.85]
+];
+const JUVENTUD = [[-83.0,21.65],[-82.7,21.9],[-82.5,21.7],[-82.7,21.5],[-83.0,21.5]];
+const aPath = pts => 'M' + pts.map(([lo,la]) => `${PX(lo).toFixed(1)},${PY(la).toFixed(1)}`).join(' L') + ' Z';
+const aLinea = pts => 'M' + pts.map(([lo,la]) => `${PX(lo).toFixed(1)},${PY(la).toFixed(1)}`).join(' L');
+
+const LUGARES = [
+  { id: 'coloradas', quien: 'ambos', lon: -77.65, lat: 19.97,
+    nombre: ['Las Coloradas: desembarco del Granma', 'Las Coloradas: the Granma landing'],
+    corto: ['Las Coloradas', 'Las Coloradas'],
+    texto: ['El 2 de diciembre de 1956 desembarcó en esta playa la expedición del yate Granma, con Fidel al frente. Entre los expedicionarios venían el Che, como médico, y Camilo.',
+            'On December 2, 1956, the expedition aboard the yacht Granma landed on this beach, with Fidel at its head. Among the expeditionaries were Che, as the doctor, and Camilo.'] },
+  { id: 'sierra', quien: 'ambos', lon: -76.85, lat: 20.15,
+    nombre: ['Sierra Maestra: la escuela de la guerrilla', 'Sierra Maestra: the guerrilla’s school'],
+    corto: ['Sierra Maestra', 'Sierra Maestra'],
+    texto: ['Tras el desembarco, los rebeldes se reorganizaron en estas montañas. Aquí el Che pasó de médico a comandante, y Camilo se destacó por su valentía y su ingenio en combate.',
+            'After the landing, the rebels regrouped in these mountains. Here Che went from doctor to commander, and Camilo stood out for his courage and his resourcefulness in combat.'] },
+  { id: 'camaguey', quien: 'camilo', lon: -77.92, lat: 21.38,
+    nombre: ['Camagüey: el último vuelo de Camilo', 'Camagüey: Camilo’s last flight'],
+    corto: ['Camagüey', 'Camagüey'],
+    texto: ['El 28 de octubre de 1959 la avioneta de Camilo despegó de Camagüey rumbo a La Habana y desapareció sobre el mar. En 1958, las columnas de la invasión también cruzaron esta provincia.',
+            'On October 28, 1959, Camilo’s small plane took off from Camagüey bound for Havana and disappeared over the sea. In 1958, the invasion columns had also crossed this province.'] },
+  { id: 'yaguajay', quien: 'camilo', lon: -79.23, lat: 22.33,
+    nombre: ['Yaguajay: la batalla de Camilo', 'Yaguajay: Camilo’s battle'],
+    corto: ['Yaguajay', 'Yaguajay'],
+    texto: ['Camilo dirigió el cerco al cuartel de Yaguajay, defendido por una guarnición del ejército de Batista, hasta su rendición a finales de diciembre de 1958.',
+            'Camilo led the siege of the Yaguajay barracks, defended by a garrison of Batista’s army, until its surrender in late December 1958.'] },
+  { id: 'santaclara', quien: 'che', lon: -79.97, lat: 22.4,
+    nombre: ['Santa Clara: victoria y memorial del Che', 'Santa Clara: Che’s victory and memorial'],
+    corto: ['Santa Clara', 'Santa Clara'],
+    texto: ['En diciembre de 1958 el Che dirigió la toma de la ciudad, con el descarrilamiento del tren blindado como acción famosa. Desde 1997 sus restos descansan en el Memorial Comandante Ernesto Che Guevara.',
+            'In December 1958 Che led the taking of the city, with the derailment of the armored train as a famous action. Since 1997 his remains rest in the Comandante Ernesto Che Guevara Memorial.'] },
+  { id: 'habana', quien: 'ambos', lon: -82.37, lat: 23.13,
+    nombre: ['La Habana: el triunfo de la Revolución', 'Havana: the triumph of the Revolution'],
+    corto: ['La Habana', 'Havana'],
+    texto: ['A inicios de enero de 1959 Camilo ocupó el Campamento de Columbia y el Che, la fortaleza de La Cabaña. Desde aquí comenzaron a construir la nueva Cuba.',
+            'In early January 1959 Camilo took over the Columbia military camp and Che took the La Cabaña fortress. From here they began building the new Cuba.'] },
+  { id: 'varadero', quien: 'ambos', lon: -81.2, lat: 23.1,
+    nombre: ['Varadero: donde su legado se pone en práctica', 'Varadero: where their legacy is put into practice'],
+    corto: ['Varadero', 'Varadero'],
+    texto: ['Polo turístico de Cuba y sede de la Escuela de Hotelería y Turismo. Aquí la cercanía de Camilo y la ética del Che se viven cada día en el servicio al huésped.',
+            'A tourism hub of Cuba and home of the School of Hospitality and Tourism. Here Camilo’s closeness and Che’s ethics are lived every day in service to the guest.'] }
+];
+const QUIEN_TAG = {
+  camilo: ['Camilo', 'Camilo'],
+  che: ['Che', 'Che'],
+  ambos: ['Camilo y Che', 'Camilo and Che']
+};
+let lugarSel = null;
+
+function pintarMapa(){
+  const zona = document.getElementById('zona-mapa');
+  const P = id => LUGARES.find(l => l.id === id);
+  const pt = l => [l.lon, l.lat];
+  const rutaComun = aLinea([pt(P('sierra')), pt(P('camaguey'))]);
+  const rutaCamilo = aLinea([pt(P('camaguey')), [-78.8, 21.95], pt(P('yaguajay'))]);
+  const rutaChe = aLinea([pt(P('camaguey')), [-79.3, 21.75], pt(P('santaclara'))]);
+
+  const marcadores = LUGARES.map(l => {
+    const x = PX(l.lon).toFixed(1), y = PY(l.lat).toFixed(1);
+    const sel = l.id === lugarSel;
+    return `<g class="punto${sel ? ' sel' : ''}" data-lugar="${l.id}" tabindex="0" role="button" aria-label="${t(l.corto)}">
+      <circle cx="${x}" cy="${y}" r="24" fill="transparent"/>
+      <circle class="vis c-${l.quien}" cx="${x}" cy="${y}" r="${sel ? 14 : 11}"/>
+      ${sel ? `<text class="etiqueta-mapa" x="${x}" y="${(y - 20)}">${t(l.corto)}</text>` : ''}
+    </g>`;
+  }).join('');
+
+  const lugar = LUGARES.find(l => l.id === lugarSel);
+  const panel = lugar
+    ? `<div class="info-lugar"><span class="quien-tag">${t(QUIEN_TAG[lugar.quien])}</span><h3>${t(lugar.nombre)}</h3><p>${t(lugar.texto)}</p></div>`
+    : `<div class="info-lugar"><p>${L('Selecciona un lugar para ver su historia.', 'Select a place to see its story.')}</p></div>`;
+
+  zona.innerHTML = `
+    <div class="mapa-wrap">
+      <svg viewBox="-10 -30 660 280" role="group" aria-label="${L('Mapa esquemático de Cuba', 'Schematic map of Cuba')}">
+        <path class="pais" d="${aPath(CUBA)}"/>
+        <path class="pais" d="${aPath(JUVENTUD)}"/>
+        <path class="ruta comun" d="${rutaComun}"/>
+        <path class="ruta r-camilo" d="${rutaCamilo}"/>
+        <path class="ruta r-che" d="${rutaChe}"/>
+        ${marcadores}
+      </svg>
+    </div>
+    <div class="leyenda">
+      <span><i class="c-camilo"></i>Camilo</span>
+      <span><i class="c-che"></i>Che</span>
+      <span><i class="c-ambos"></i>${L('Los dos', 'Both')}</span>
+      <span><i class="l-ruta rc"></i>${L('Invasión de 1958: Camilo', '1958 invasion: Camilo')}</span>
+      <span><i class="l-ruta rch"></i>${L('Invasión de 1958: Che', '1958 invasion: Che')}</span>
+    </div>
+    <div class="lista-lugares">
+      ${LUGARES.map(l => `<button class="lugar" data-lugar="${l.id}" aria-pressed="${l.id === lugarSel}">${t(l.corto)}</button>`).join('')}
+    </div>
+    ${panel}
+    <p class="nota-mapa">${L('Mapa esquemático, no a escala.', 'Schematic map, not to scale.')}</p>`;
+
+  zona.querySelectorAll('[data-lugar]').forEach(el => {
+    const elegir = () => { lugarSel = el.dataset.lugar; pintarMapa(); };
+    el.addEventListener('click', elegir);
+    if (el.tagName === 'g') el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); elegir(); } });
+  });
+}
+
+/* ============================================================
+   NAVEGACIÓN
+   ============================================================ */
+const pantallas = document.querySelectorAll('.pantalla');
+const botonesMenu = document.querySelectorAll('#menu button[data-ir]');
+const MENU_DE = { resultado: 'reto', quizfin: 'quiz' };
+let actual = 'portada';
+
+function ir(id){
+  actual = id;
+  pantallas.forEach(p => p.classList.toggle('activa', p.id === id));
+  const resaltar = MENU_DE[id] || id;
+  botonesMenu.forEach(b => b.setAttribute('aria-current', b.dataset.ir === resaltar ? 'true' : 'false'));
+  if (id === 'reto' && !estado.enCurso) iniciarReto();
+  if (id === 'quiz' && !qs.enCurso) iniciarQuiz();
+  window.scrollTo({top:0});
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-ir]');
+  if (b) ir(b.dataset.ir);
+});
+
+document.getElementById('btn-idioma').addEventListener('click', () => {
+  lang = lang === 'es' ? 'en' : 'es';
+  refrescar();
+});
+
+function refrescar(){
+  aplicarIdioma();
+  pintarHeroes();
+  pintarMapa();
+  if (actual === 'reto') pintarCaso();
+  if (actual === 'resultado') mostrarResultado(false);
+  if (actual === 'quiz') pintarPregunta();
+  if (actual === 'quizfin') mostrarResultadoQuiz(false);
+}
+
+/* ============================================================
+   TARJETAS DE HÉROES
+   ============================================================ */
+function silueta(id){
+  return id === 'camilo'
+    ? `<svg viewBox="0 0 200 260" aria-hidden="true"><ellipse cx="100" cy="82" rx="88" ry="14" fill="#111"/><path d="M52 80 Q54 28 100 26 Q146 28 148 80 Z" fill="#111"/><ellipse cx="100" cy="118" rx="38" ry="44" fill="#d9c7a3"/><path d="M62 124 Q64 178 100 186 Q136 178 138 124 Q128 150 100 152 Q72 150 62 124 Z" fill="#111"/><path d="M20 260 Q26 196 100 188 Q174 196 180 260 Z" fill="#2B3722" stroke="#111" stroke-width="4"/></svg>`
+    : `<svg viewBox="0 0 200 260" aria-hidden="true"><path d="M40 76 Q44 30 108 28 Q170 32 164 78 Q100 62 40 76 Z" fill="#111"/><ellipse cx="102" cy="118" rx="36" ry="42" fill="#d9c7a3"/><path d="M70 128 Q74 168 102 172 Q130 168 134 128 Q124 146 102 146 Q80 146 70 128 Z" fill="#111" opacity=".85"/><path d="M22 260 Q28 196 102 188 Q176 196 182 260 Z" fill="#2B3722" stroke="#111" stroke-width="4"/></svg>`;
+}
+
+const abiertos = {};   // recuerda qué tarjetas están abiertas al cambiar de idioma
+
+function pintarHeroes(){
+  const cont = document.getElementById('lista-heroes');
+  cont.innerHTML = HEROES.map(h => {
+    const abierto = !!abiertos[h.id];
+    return `
+    <article class="tarjeta">
+      <header>
+        <div class="foto">${h.foto ? `<img src="${h.foto}" alt="${h.nombre}">` : silueta(h.id)}</div>
+        <div>
+          <h3>${h.nombre}</h3>
+          <p class="dato">${t(h.dato)}</p>
+        </div>
+      </header>
+      <div class="cuerpo">
+        <p>${t(h.resumen)}</p>
+        <div class="etiquetas">${h.valores.map(v => `<span>${t(v)}</span>`).join('')}</div>
+      </div>
+      <button class="toggle" data-h="${h.id}" aria-expanded="${abierto}" aria-controls="hitos-${h.id}">${abierto ? L('Ocultar historia', 'Hide story') : L('Conocer su historia', 'Learn their story')}</button>
+      <div class="hitos${abierto ? ' abierto' : ''}" id="hitos-${h.id}">
+        <h4>${L('Su historia', 'Their story')}</h4>
+        ${h.historia.map(p => `<p>${t(p)}</p>`).join('')}
+        <h4>${L('Su recorrido', 'Their journey')}</h4>
+        <ul>${h.hitos.map(([f, x]) => `<li><b>${t(f)}</b>${t(x)}</li>`).join('')}</ul>
+        <h4>${L('Sus palabras', 'Their words')}</h4>
+        <blockquote><strong>${t(h.frase[0])}</strong><span>${t(h.frase[1])}</span></blockquote>
+        <h4>${L('Su enseñanza para el turismo', 'What they teach tourism')}</h4>
+        <p class="leccion">${t(h.leccion)}</p>
+      </div>
+    </article>`;
+  }).join('');
+
+  cont.querySelectorAll('.toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.h;
+      abiertos[id] = !abiertos[id];
+      pintarHeroes();
+      const nuevo = document.querySelector(`.toggle[data-h="${id}"]`);
+      if (nuevo) nuevo.focus();
+    });
+  });
+}
+
+/* ============================================================
+   RETO DEL SERVICIO
+   ============================================================ */
+const estado = { actual:0, puntos:{camilo:0, che:0}, respuestas:[], respondido:false, eleccion:null, enCurso:false };
+
+function iniciarReto(){
+  estado.actual = 0;
+  estado.puntos = {camilo:0, che:0};
+  estado.respuestas = [];
+  estado.respondido = false;
+  estado.eleccion = null;
+  estado.enCurso = true;
+  pintarCaso();
+}
+
+function pintarCaso(){
+  const c = CASOS[estado.actual];
+  const total = CASOS.length;
+  const zona = document.getElementById('zona-reto');
+  zona.innerHTML = `
+    <div class="progreso">
+      <span>${estado.actual + 1} ${L('de', 'of')} ${total}</span>
+      <div class="barra-prog" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${estado.actual}"><div style="width:${(estado.actual/total)*100}%"></div></div>
+    </div>
+    <p class="etapa">${L('Etapa', 'Stage')} ${c.etapa + 1} ${L('de', 'of')} ${ETAPAS.length}: ${t(ETAPAS[c.etapa])}</p>
+    <div class="caso">
+      <h2 id="t-reto" style="font-size:1rem;opacity:.7;font-family:var(--texto);font-weight:400;margin-bottom:.3rem">${L('Reto del servicio', 'Service challenge')}</h2>
+      <h3>${t(c.titulo)}</h3>
+      <p>${t(c.texto)}</p>
+      <div class="opciones" id="opciones">
+        ${c.opciones.map((o, i) => `<button class="opcion" data-i="${i}">${t(o[0])}</button>`).join('')}
+      </div>
+      <div class="retro" id="retro" role="status" aria-live="polite"></div>
+    </div>
+    <div class="acciones" id="acciones"></div>`;
+
+  zona.querySelectorAll('.opcion').forEach(b => b.addEventListener('click', () => responder(+b.dataset.i)));
+  if (estado.respondido) pintarRespuesta();
+}
+
+function responder(i){
+  if (estado.respondido) return;
+  const c = CASOS[estado.actual];
+  const pts = c.opciones[i][1];
+  estado.respondido = true;
+  estado.eleccion = i;
+  estado.puntos[c.heroe] += pts;
+  estado.respuestas.push({ valor: c.valor, pts });
+  pintarRespuesta();
+  document.getElementById('siguiente').focus();
+}
+
+function pintarRespuesta(){
+  const c = CASOS[estado.actual];
+  const i = estado.eleccion;
+  const pts = c.opciones[i][1];
+
+  document.querySelectorAll('#opciones .opcion').forEach((b, idx) => {
+    b.disabled = true;
+    if (idx === i) b.classList.add('p' + c.opciones[idx][1]);
+    if (c.opciones[idx][1] === 2) b.classList.add('mejor');
+  });
+
+  const veredicto = pts === 2 ? L('Excelente decisión', 'Excellent decision')
+                  : pts === 1 ? L('Aceptable, pero se puede mejorar', 'Acceptable, but it can be improved')
+                  : L('Esta no era la mejor opción', 'This was not the best option');
+  const puntos = L(pts === 1 ? 'punto' : 'puntos', pts === 1 ? 'point' : 'points');
+  const retro = document.getElementById('retro');
+  retro.innerHTML = `
+    <div class="insignia" aria-hidden="true">${c.heroe === 'camilo' ? 'C' : 'Ch'}</div>
+    <div>
+      <strong>${veredicto} (${pts} ${puntos})</strong>
+      <span>${L('Valor en juego', 'Value at stake')}: ${t(c.valor)}. ${t(c.retro)}</span>
+    </div>`;
+  retro.classList.add('visible');
+
+  const ultimo = estado.actual === CASOS.length - 1;
+  document.getElementById('acciones').innerHTML =
+    `<button class="btn" id="siguiente">${ultimo ? L('Ver mi resultado', 'See my result') : L('Siguiente situación', 'Next situation')}</button>`;
+  document.getElementById('siguiente').addEventListener('click', () => {
+    if (ultimo){ mostrarResultado(true); }
+    else { estado.actual++; estado.respondido = false; estado.eleccion = null; pintarCaso(); window.scrollTo({top:0}); }
+  });
+}
+
+function mostrarResultado(navegar){
+  estado.enCurso = false;
+  const { camilo, che } = estado.puntos;
+  const total = camilo + che;
+  const maxTotal = POR_HEROE * 2;
+  const perfectas = estado.respuestas.filter(r => r.pts === 2).length;
+  const reforzar = estado.respuestas.filter(r => r.pts < 2).map(r => t(r.valor));
+
+  let titulo, mensaje;
+  if (camilo > che){
+    titulo = L('Tu espíritu se parece al de Camilo', 'Your spirit resembles Camilo’s');
+    mensaje = L('Tu estilo es la cercanía y el liderazgo humano. Sirves con sencillez, alegría y siempre al lado de los demás.',
+                'Your style is closeness and human leadership. You serve with simplicity, joy and always alongside others.');
+  } else if (che > camilo){
+    titulo = L('Tu espíritu se parece al del Che', 'Your spirit resembles Che’s');
+    mensaje = L('Tu estilo es la ética y el ejemplo personal. Haces lo correcto aunque nadie te vea y no pides a otros lo que no harías tú.',
+                'Your style is ethics and personal example. You do the right thing even when no one is watching and never ask of others what you wouldn’t do yourself.');
+  } else {
+    titulo = L('Eres un servicio completo', 'You are a complete service');
+    mensaje = L('Camilo y Che en uno: tienes la cercanía humana y la firmeza ética que hacen grande a un profesional del turismo.',
+                'Camilo and Che in one: you have the human closeness and ethical firmness that make a tourism professional great.');
+  }
+  const ratio = total / maxTotal;
+  const cierre = ratio >= 0.8 ? L('Gran resultado: llevas la historia en cada servicio.', 'Great result: you carry history in every service.')
+               : ratio >= 0.5 ? L('Buen camino: sigue practicando estos valores cada día.', 'Good path: keep practicing these values every day.')
+               : L('Todavía hay mucho por aprender de ellos: vuelve a los héroes y repite el reto.', 'There is still much to learn from them: go back to the heroes and repeat the challenge.');
+
+  document.getElementById('zona-resultado').innerHTML = `
+    <div class="medalla"><svg aria-hidden="true"><use href="#estrella"/></svg></div>
+    <h2 id="t-res">${titulo}</h2>
+    <p>${mensaje}</p>
+    <div class="marcador">
+      <div><b>${camilo}/${POR_HEROE}</b>Camilo</div>
+      <div><b>${che}/${POR_HEROE}</b>Che</div>
+      <div><b>${total}/${maxTotal}</b>Total</div>
+    </div>
+    <p>${L('Tomaste la mejor decisión en', 'You made the best decision in')} <strong>${perfectas} ${L('de', 'of')} ${CASOS.length}</strong> ${L('situaciones', 'situations')}. ${cierre}</p>
+    ${reforzar.length
+      ? `<div class="refuerzo"><strong>${L('Valores para reforzar', 'Values to strengthen')}</strong><ul>${reforzar.map(v => `<li>${v}</li>`).join('')}</ul></div>`
+      : `<div class="refuerzo"><strong>${L('No tienes nada que reforzar:', 'Nothing to strengthen:')}</strong> ${L('todas tus decisiones fueron las mejores.', 'all your decisions were the best ones.')}</div>`}
+    <p style="margin-top:1rem">
+      <button class="btn" id="repetir">${L('Repetir el reto', 'Repeat the challenge')}</button>
+      <button class="btn claro" data-ir="heroes">${L('Ver los héroes', 'See the heroes')}</button>
+    </p>`;
+  document.getElementById('repetir').addEventListener('click', () => { iniciarReto(); ir('reto'); });
+  if (navegar) ir('resultado');
+}
+
+/* ============================================================
+   ¿QUIÉN FUE?
+   ============================================================ */
+const qs = { orden:[], actual:0, puntos:0, respondido:false, eleccion:null, enCurso:false };
+
+function mezclar(a){
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function iniciarQuiz(){
+  qs.orden = mezclar(QUIZ.map((_, i) => i));
+  qs.actual = 0;
+  qs.puntos = 0;
+  qs.respondido = false;
+  qs.eleccion = null;
+  qs.enCurso = true;
+  pintarPregunta();
+}
+
+const NOMBRE_RESP = { camilo: ['Camilo', 'Camilo'], che: ['Che', 'Che'], ambos: ['Los dos', 'Both'] };
+
+function pintarPregunta(){
+  const q = QUIZ[qs.orden[qs.actual]];
+  const total = QUIZ.length;
+  const zona = document.getElementById('zona-quiz');
+  zona.innerHTML = `
+    <div class="progreso">
+      <span>${qs.actual + 1} ${L('de', 'of')} ${total}</span>
+      <div class="barra-prog" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${qs.actual}"><div style="width:${(qs.actual/total)*100}%"></div></div>
+    </div>
+    <div class="caso">
+      <h2 id="t-quiz" style="font-size:1rem;opacity:.7;font-family:var(--texto);font-weight:400;margin-bottom:.3rem">${L('¿Quién fue?', 'Who was it?')}</h2>
+      <h3>${q.tipo === 'frase' ? L('¿Quién lo dijo?', 'Who said it?') : L('¿De quién se trata?', 'Who is it about?')}</h3>
+      ${q.tipo === 'frase' ? `<p class="cita">${t(q.texto)}</p>` : `<p style="font-size:1.15rem">${t(q.texto)}</p>`}
+      <div class="quien" id="opciones">
+        ${['camilo', 'che', 'ambos'].map(k => `<button class="opcion" data-k="${k}">${t(NOMBRE_RESP[k])}</button>`).join('')}
+      </div>
+      <div class="retro" id="retro" role="status" aria-live="polite"></div>
+    </div>
+    <div class="acciones" id="acciones"></div>`;
+  zona.querySelectorAll('.opcion').forEach(b => b.addEventListener('click', () => responderQuiz(b.dataset.k)));
+  if (qs.respondido) pintarRespuestaQuiz();
+}
+
+function responderQuiz(k){
+  if (qs.respondido) return;
+  const q = QUIZ[qs.orden[qs.actual]];
+  qs.respondido = true;
+  qs.eleccion = k;
+  if (k === q.resp) qs.puntos++;
+  pintarRespuestaQuiz();
+  document.getElementById('siguiente').focus();
+}
+
+function pintarRespuestaQuiz(){
+  const q = QUIZ[qs.orden[qs.actual]];
+  const ok = qs.eleccion === q.resp;
+  document.querySelectorAll('#opciones .opcion').forEach(b => {
+    b.disabled = true;
+    if (b.dataset.k === q.resp) b.classList.add('mejor');
+    if (b.dataset.k === qs.eleccion) b.classList.add(ok ? 'bien' : 'mal');
+  });
+  const retro = document.getElementById('retro');
+  retro.innerHTML = `
+    <div class="insignia" aria-hidden="true">${ok ? '✓' : '✗'}</div>
+    <div>
+      <strong>${ok ? L('¡Correcto!', 'Correct!') : L('No es esa.', 'Not quite.')}${ok ? '' : ' ' + L('Respuesta: ', 'Answer: ') + t(NOMBRE_RESP[q.resp]) + '.'}</strong>
+      <span>${t(q.retro)}</span>
+    </div>`;
+  retro.classList.add('visible');
+
+  const ultimo = qs.actual === QUIZ.length - 1;
+  document.getElementById('acciones').innerHTML =
+    `<button class="btn" id="siguiente">${ultimo ? L('Ver mi resultado', 'See my result') : L('Siguiente', 'Next')}</button>`;
+  document.getElementById('siguiente').addEventListener('click', () => {
+    if (ultimo){ mostrarResultadoQuiz(true); }
+    else { qs.actual++; qs.respondido = false; qs.eleccion = null; pintarPregunta(); window.scrollTo({top:0}); }
+  });
+}
+
+function mostrarResultadoQuiz(navegar){
+  qs.enCurso = false;
+  const total = QUIZ.length;
+  const ratio = qs.puntos / total;
+  const titulo = ratio >= 0.85 ? L('¡Conoces bien a Camilo y al Che!', 'You know Camilo and Che well!')
+               : ratio >= 0.5 ? L('Vas por buen camino', 'You’re on the right track')
+               : L('Aún puedes aprender más de ellos', 'You can still learn more about them');
+  const msg = ratio >= 0.85 ? L('Tu memoria histórica está a la altura del concurso.', 'Your historical memory is up to the contest.')
+            : ratio >= 0.5 ? L('Repasa las tarjetas de los héroes y el mapa, y vuelve a intentarlo.', 'Review the hero cards and the map, then try again.')
+            : L('Visita la sección de los héroes y vuelve a jugar: aprenderás mucho.', 'Visit the heroes section and play again: you will learn a lot.');
+  document.getElementById('zona-quizfin').innerHTML = `
+    <div class="medalla"><svg aria-hidden="true"><use href="#estrella"/></svg></div>
+    <h2 id="t-quizfin">${titulo}</h2>
+    <div class="marcador"><div><b>${qs.puntos}/${total}</b>${L('Aciertos', 'Correct answers')}</div></div>
+    <p>${msg}</p>
+    <p style="margin-top:1rem">
+      <button class="btn" id="repetir-quiz">${L('Jugar de nuevo', 'Play again')}</button>
+      <button class="btn claro" data-ir="mapa">${L('Ver el mapa', 'See the map')}</button>
+    </p>`;
+  document.getElementById('repetir-quiz').addEventListener('click', () => { iniciarQuiz(); ir('quiz'); });
+  if (navegar) ir('quizfin');
+}
+
+/* Inicio */
+aplicarIdioma();
+pintarHeroes();
+pintarMapa();
+ir('portada');
+</script>
+</body>
+</html>
